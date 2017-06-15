@@ -55,5 +55,5 @@ app.get('*', routes.index);
 // Start server
 
 app.listen(3000, function () {
-    console.log("CustMgr Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log("Facebook-Lite Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });

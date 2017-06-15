@@ -1,55 +1,26 @@
-﻿<div class="view">
-    <div class="container">
-        <header>
-            <h3><span class="glyphicon glyphicon-lock"></span> Login</h3>
-        </header>
-        <form name="loginForm" novalidate>
-            <div class="login">
-                <div class="row">
-                    <div class="col-md-2">
-                        Email:
-                    </div>
-                    <div class="col-md-10">
-                        <input type="email" name="email" class="form-control" data-ng-model="email" required />
-                        <span class="errorMessage" ng-show="loginForm.email.$touched && loginForm.email.$invalid">
-                            Email is required
-                        </span>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-2">
-                        Password:
-                    </div>
-                    <div class="col-md-10">
-                        <input type="password" name="password" class="form-control"
-                               data-ng-model="password"
-                               data-ng-minlength="6"
-                               required />
-                        <span class="errorMessage" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
-                            Password is required
-                        </span>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary"
-                                data-ng-click="login()"
-                                ng-disabled="loginForm.$invalid || !loginForm.$dirty">
-                            Login
-                        </button>
-                    </div>
-                </div>
-                <br />
-                <div class="statusRow">
-                    <br />
-                    <div class="label label-important" data-ng-show="errorMessage">
-                        <span class="glyphicon glyphicon-thumbs-down icon-white"></span>&nbsp;&nbsp;Error: {{ errorMessage }}
-                    </div>
-                </div>
+﻿<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div>
+
+            <h1 class="logo-name">f+</h1>
+
+        </div>
+        <h3>Welcome to Facebook Lite</h3>
+        </p>
+        <p>Login in. To see it in action.</p>
+        <form class="m-t" role="form">
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Username" required="">
             </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" required="">
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+
+            <a href="#"><small>Forgot password?</small></a>
+            <p class="text-muted text-center"><small>Do not have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
         </form>
+        <p class="m-t"> <small><a href="https://github.com/kugoo109"><i class="fa fa-github" aria-hidden="true"></i> kugoo109</a> &copy; 2017</small> </p>
     </div>
 </div>
-

@@ -1,54 +1,36 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
-    <title>Facebook Lite</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 3rd party libraries -->
-    <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <title>Facebook Lite</title>
 
-    <!-- Custom styles -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="vendor/components-font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
 </head>
+
 <body ng-app="myApp">
 
-    <header class="navbar navbar-inner navbar-fixed-top" ng-controller="NavbarController">
-        <nav class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                    <span class="appTitle">{{ appTitle }}</span>
-                </a>
-            </div>
-            <div class="nav-container" data-collapse="isCollapsed">
+    <div ui-view></div>
 
-                <ul class="nav navbar-nav nav-pills navBarPadding">
-                    <li><a ui-sref="home">News Feed</a></li>
-                    <li id="nav-login" ng-click="loginOrOut()">
-                        <a ui-sref="login">{{ loginLogoutText }}</a>
-                    </li>
-                </ul>
-
-            </div>
-        </nav>
-    </header>
-
-    <div>
-        <div ui-view></div>
-    </div>
-
-    <!-- 3rd party libraries -->
+    <!-- Mainly scripts -->
+    <script src="vendor/jquery/dist/jquery.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
     <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-resource/angular-resource.js"></script>
     <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
-    
+    <script src="vendor/metisMenu/dist/metisMenu.js"></script>
+    <script src="vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="vendor/PACE/pace.js"></script>
+
     <!-- Custom scripts -->
     <script src="app.js"></script>
     <script src="services/config.js"></script>
@@ -58,8 +40,8 @@
     <script src="services/modalService.js"></script>
     <script src="controllers/navbarController.js"></script>
     <script src="controllers/loginController.js"></script>
-
+    <script src="controllers/mainController.js"></script>
+    <script src="controllers/feedController.js"></script>
 </body>
+
 </html>
-
-

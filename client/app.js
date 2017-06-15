@@ -7,13 +7,22 @@
         var viewBase = '/views/';
 
         $stateProvider
+            .state('main', {
+                abstract: true,
+                templateUrl: viewBase + 'main.html'
+            })
+            .state('main.home', {
+                url: '/',
+                controller: 'FeedController',
+                templateUrl: viewBase + 'feed.html'
+            })
             .state('login', {
                 url: '/login',
                 controller: 'LoginController',
                 templateUrl: viewBase + 'login.html'
             });
 
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/');
 
     }]);
 
