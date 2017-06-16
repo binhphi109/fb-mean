@@ -30,7 +30,7 @@
         function ($rootScope, $state, authService) {
             //Client-side security. Server-side framework MUST add it's 
             //own security as well since client-based security is easily hacked
-            $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 if(toState.name === 'login') {
                     storePreviousState(fromState, fromParams);
                 }
@@ -57,7 +57,7 @@
                     };
                 }
             }
-    }]);
+        }]);
 
 }());
 

@@ -1,7 +1,7 @@
 (function () {
 
     var injectParams = ['$scope', '$location', '$filter', '$window',
-                        '$timeout', 'authService', 'dataService', 'modalService'];
+        '$timeout', 'authService', 'dataService', 'modalService'];
 
     var FeedController = function ($scope, $location, $filter, $window,
         $timeout, authService, dataService, modalService) {

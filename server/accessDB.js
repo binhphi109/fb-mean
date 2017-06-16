@@ -1,7 +1,7 @@
 // Module dependencies
 var mongoose = require('mongoose')
-  , Schema = mongoose.Schema
-  , util = require('util');
+    , Schema = mongoose.Schema
+    , util = require('util');
 
 // connect to database
 module.exports = {
