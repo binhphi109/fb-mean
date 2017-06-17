@@ -19,9 +19,8 @@ exports.register = function (req, res) {
  * Login after passport authentication
  */
 exports.login = function (req, res, next) {
-    var userLogin = req.body.userLogin;
-    var userName = userLogin.userName;
-    var password = userLogin.password;
+    var userName = req.body.userName;
+    var password = req.body.password;
 
     //Simulate login
     res.json({ status: true });
