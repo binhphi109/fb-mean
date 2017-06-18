@@ -1,4 +1,4 @@
-<div class="col-lg-6">
+<div class="col-lg-6" ng-repeat="feed in feeds">
                         
     <div class="social-feed-box">
 
@@ -16,74 +16,33 @@
             </a>
             <div class="media-body">
                 <a href="#">
-                    Andrew Williams
+                    {{ feed.user.displayName }}
                 </a>
-                <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                <small class="text-muted">{{ feed.created }}</small>
             </div>
         </div>
         <div class="social-body">
-            <p>
-                Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                default model text.
-            </p>
-            <p>
-                Lorem Ipsum as their
-                default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                default model text.
-            </p>
+            {{ feed.content }}
             <img src="img/gallery/11.jpg" class="img-responsive">
             <div class="btn-group">
-                <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
-                <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
-                <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
+                <button class="btn btn-xs" ng-class="feed.isLiked ? 'btn-primary' : 'btn-white'" ng-click="hitLike(feed)">
+                    <i class="fa fa-thumbs-up"></i> {{ feed.likes.length }} Like
+                </button>
+                <button class="btn btn-white btn-xs" ng-click="hitComment(feed)"><i class="fa fa-comments"></i> Comment</button>
             </div>
         </div>
         <div class="social-footer">
-            <div class="social-comment">
+            <div class="social-comment" ng-repeat="comment in feed.comments">
                 <a href="#" class="pull-left">
                     <img alt="image" src="img/a1.jpg">
                 </a>
                 <div class="media-body">
                     <a href="#">
-                        Andrew Williams
+                        {{ comment.user.displayName }}
                     </a>
-                    Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.
+                    {{ comment.content }}
                     <br/>
-                    <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
-                    <small class="text-muted">12.06.2014</small>
-                </div>
-            </div>
-
-            <div class="social-comment">
-                <a href="#" class="pull-left">
-                    <img alt="image" src="img/a2.jpg">
-                </a>
-                <div class="media-body">
-                    <a href="#">
-                        Andrew Williams
-                    </a>
-                    Making this the first true generator on the Internet. It uses a dictionary of.
-                    <br/>
-                    <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                    <small class="text-muted">10.07.2014</small>
-                </div>
-            </div>
-
-            <div class="social-comment">
-                <a href="#" class="pull-left">
-                    <img alt="image" src="img/a8.jpg">
-                </a>
-                <div class="media-body">
-                    <a href="#">
-                        Andrew Williams
-                    </a>
-                    Making this the first true generator on the Internet. It uses a dictionary of.
-                    <br/>
-                    <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                    <small class="text-muted">10.07.2014</small>
+                    <small class="text-muted">{{ comment.created }}</small>
                 </div>
             </div>
 
@@ -92,7 +51,9 @@
                     <img alt="image" src="img/a3.jpg">
                 </a>
                 <div class="media-body">
-                    <textarea class="form-control" placeholder="Write comment..."></textarea>
+                    <textarea class="form-control" placeholder="Write comment..." 
+                        ng-model="$parent.commentText" is-focused="$parent.isCommentFocused" 
+                        ng-enter="addComment(feed)"></textarea>
                 </div>
             </div>
 

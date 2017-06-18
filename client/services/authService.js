@@ -3,13 +3,15 @@
     var injectParams = ['$http', '$rootScope'];
 
     var authFactory = function ($http, $rootScope) {
-        var serviceBase = '/api/dataservice/',
+        var serviceBase = '/api/v1/',
             factory = {
-                loginPath: '/login',
-                user: {
-                    isAuthenticated: false,
-                    roles: null
-                }
+                currentUser: {
+                    username: 'kugoo109',
+                    email: 'kugoo109@gmail.com',
+                    displayName: 'Binh-Phi Nguyen',
+                },
+                isAuthenticated: false,
+                roles: null
             };
 
         factory.login = function (email, password) {
@@ -31,7 +33,7 @@
         };
 
         function changeAuth(loggedIn) {
-            factory.user.isAuthenticated = loggedIn;
+            factory.isAuthenticated = loggedIn;
             $rootScope.$broadcast('loginStatusChanged', loggedIn);
         }
 
