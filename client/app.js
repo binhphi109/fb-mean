@@ -17,7 +17,7 @@
                 templateUrl: viewBase + 'feed.html'
             })
             .state('main.profile', {
-                url: '/profile',
+                url: '/profile/:username',
                 controller: 'ProfileController',
                 templateUrl: viewBase + 'profile.html'
             })

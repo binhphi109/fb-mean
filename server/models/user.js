@@ -24,6 +24,10 @@ var UserSchema = new Schema({
         type: String,
         trim: true
     },
+    title: {
+        type: String,
+        trim: true
+    },
     email: {
         type: String,
         unique: true,

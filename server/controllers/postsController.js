@@ -70,39 +70,47 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
     var post = req.post,
-        i = post.comments.length;
+        comments = post.comments,
+        i = comments.length;
 
-    // async full parallel for deleting
-    while(i--){
-        var comment = post.comments[i];
-        comment.remove(function(err) {
-            if(err){
-                return res.status(400).send({
-                    message: errorHandler.getErrorMessage(err)
-                });
+    post.remove(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            if(i == 0){
+                res.jsonp({ status: true });
             } else {
-                post.comments.pop();
-                if(post.comments.length === 0) {
-                    post.remove(function(err) {
-                        if (err) {
+            // async full parallel for deleting
+                while(i--){
+                    var comment = comments[i];
+                    comment.remove(function(err) {
+                        if(err){
                             return res.status(400).send({
                                 message: errorHandler.getErrorMessage(err)
                             });
                         } else {
-                            res.jsonp({ status: true });
+                            comments.pop();
+                            if(comments.length === 0) {
+                                res.jsonp({ status: true });
+                            }
                         }
                     });
                 }
             }
-        });
-    }
+        }
+    });
 };
 
 /**
  * List of Posts
  */
 exports.list = function(req, res) { 
-    Post.find().sort('-created')
+    var userId = req.query.userId,
+        query = userId ? { user: userId } : {};
+
+    Post.find(query).sort('-created')
         .populate('user', 'displayName')
         .populate('likes', 'displayName')
         .populate({

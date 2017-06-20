@@ -6,8 +6,10 @@
         var serviceBase = '/api/v1/',
             factory = {};
 
-        factory.getPosts = function () {
-            return $http.get(serviceBase + 'posts').then(function (results) {
+        factory.getPosts = function (userId) {
+            var params = userId ? '?userId=' + userId : '';
+            
+            return $http.get(serviceBase + 'posts' + params).then(function (results) {
                 return results.data;
             });
         };

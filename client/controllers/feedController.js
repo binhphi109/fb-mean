@@ -41,13 +41,28 @@
             var self = this;
             var newComment = {
                 post: post._id,
-                content: self.commentText
+                content: self.commentContent
             };
 
             // update to db
             commentsService.insertComment(newComment).then(function(data) {
                 post.comments.push(data);
-                self.commentText = '';
+                self.commentContent = '';
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
+        };
+
+        $scope.addPost = function() {
+            var self = this;
+            var newPost = {
+                content: self.postContent
+            };
+
+            // update to db
+            postsService.insertPost(newPost).then(function(data) {
+                $scope.posts.unshift(data);
+                self.postContent = '';
             }, function(error) {
                 $window.alert('Sorry, an error occurred: ' + error.data.message);
             });

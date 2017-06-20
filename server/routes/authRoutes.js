@@ -11,7 +11,6 @@ module.exports = function (app) {
         auth = require('../controllers/authController');
 
     // Setting up the users authentication api
-    app.route(baseUrl + 'register').post(auth.register);
     app.route(baseUrl + 'login').post(auth.login);
     app.route(baseUrl + 'logout').get(auth.logout);
 

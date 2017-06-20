@@ -11,11 +11,10 @@
                             <img alt="image" src="img/profile/default.jpg">
                         </a>
                         <div class="media-body">
-                            <div class="">
-                            <textarea class="form-control" placeholder="What's on your mind?"></textarea>
-                            </div>
+                            <textarea class="form-control" placeholder="What's on your mind?" 
+                                ng-model="postContent"></textarea>
                             <div class="m-t-sm pull-right">
-                                <button class="btn btn-sm btn-primary">Post</button>
+                                <button class="btn btn-sm btn-primary" ng-click="addPost()">Post</button>
                             </div>
                         </div>
                     </div>
@@ -77,7 +76,7 @@
                     </a>
                     <div class="media-body">
                         <textarea class="form-control" placeholder="Write comment..." 
-                            ng-model="commentText" is-focused="isCommentFocused" 
+                            ng-model="commentContent" is-focused="isCommentFocused" 
                             ng-enter="addComment(post)"></textarea>
                     </div>
                 </div>

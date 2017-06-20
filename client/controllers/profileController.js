@@ -1,10 +1,10 @@
 (function () {
 
-    var injectParams = ['$scope', '$filter', '$window', '$timeout', 
-        'authService', 'postsService', 'commentsService', 'modalService'];
+    var injectParams = ['$scope', '$stateParams', '$filter', '$window', '$timeout', 
+        'authService', 'usersService', 'postsService', 'commentsService', 'modalService'];
 
-    var ProfileController = function ($scope, $filter, $window, $timeout, 
-        authService, postsService, commentsService, modalService) {
+    var ProfileController = function ($scope, $stateParams, $filter, $window, $timeout, 
+        authService, usersService, postsService, commentsService, modalService) {
 
         var currentUser = authService.currentUser;
 
@@ -41,13 +41,28 @@
             var self = this;
             var newComment = {
                 post: post._id,
-                content: self.commentText
+                content: self.commentContent
             };
 
             // update to db
             commentsService.insertComment(newComment).then(function(data) {
                 post.comments.push(data);
-                self.commentText = '';
+                self.commentContent = '';
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
+        };
+
+        $scope.addPost = function() {
+            var self = this;
+            var newPost = {
+                content: self.postContent
+            };
+
+            // update to db
+            postsService.insertPost(newPost).then(function(data) {
+                $scope.posts.unshift(data);
+                self.postContent = '';
             }, function(error) {
                 $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
@@ -73,16 +88,23 @@
         };
 
         function init() {
-            // fetch data from service
-            postsService.getPosts().then(function (data) {
-                $scope.posts = data;
-                // check like of currentUser for each post
-                $scope.posts.forEach(function(post){
-                    post.isLiked = isLiked(post.likes, currentUser);
+            // get profile user info
+            usersService.getUserByUsername($stateParams.username).then(function (data) {
+                $scope.profileUser = data;
+                // get posts by user
+                postsService.getPosts(data._id).then(function (data) {
+                    $scope.posts = data;
+                    // check like of currentUser for each post
+                    $scope.posts.forEach(function(post){
+                        post.isLiked = isLiked(post.likes, currentUser);
+                    });
+                }, function (error) {
+                    $window.alert('Sorry, an error occurred: ' + error.data.message);
                 });
             }, function (error) {
                 $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
+
         }
 
         function isLiked(likes, currentUser) {
