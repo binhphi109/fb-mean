@@ -1,0 +1,2 @@
+.box-hover .btn-hover a { visibility: hidden; }
+.box-hover:hover .btn-hover a { visibility: visible; }

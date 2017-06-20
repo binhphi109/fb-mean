@@ -8,6 +8,9 @@ var config = require('./lib/config'),
     express = require('./lib/express'),
     chalk = require('chalk');
 
+// Initialize Models
+mongoose.loadModels();
+
 module.exports.loadModels = function loadModels() {
     mongoose.loadModels();
 };

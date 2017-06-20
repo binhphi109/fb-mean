@@ -1,82 +1,99 @@
 (function () {
 
-    var injectParams = ['$scope', '$location', '$filter', '$window',
-        '$timeout', 'authService', 'dataService', 'modalService'];
+    var injectParams = ['$scope', '$filter', '$window', '$timeout', 
+        'authService', 'postsService', 'commentsService', 'modalService'];
 
-    var FeedController = function ($scope, $location, $filter, $window,
-        $timeout, authService, dataService, modalService) {
+    var FeedController = function ($scope, $filter, $window, $timeout, 
+        authService, postsService, commentsService, modalService) {
 
-        $scope.commentText = '';
-        $scope.isCommentFocused = false;
+        var currentUser = authService.currentUser;
 
-        $scope.feeds = [{
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac.',
-            isLiked: true,
-            likes: [{
-                displayName: 'Andrew Williams',
-                username: 'awilliams',
-            },{
-                displayName: 'Binh-Phi Nguyen',
-                username: 'kugoo109',
-            }],
-            comments: [{
-                content: 'Lorem ipsum dolor sit amet.',
-                user: {
-                    displayName: 'Andrew Williams',
-                    username: 'awilliams',
-                },
-                created: new Date()
-            }],
-            user: {
-                displayName: 'Andrew Williams',
-                username: 'awilliams',
-            },
-            created: new Date()
-        }];
+        $scope.posts = [];
 
-        $scope.hitLike = function (feed) {
-            var currentUser = authService.currentUser;
-
-            var index = _.findIndex(feed.likes, function(user){
-                return user.username === currentUser.username;
-            });
-            if(index < 0) {
-                feed.isLiked = true;
-                feed.likes.push(currentUser);
-            } else {
-                feed.isLiked = false;
-                _.remove(feed.likes, function(user) {
-                    return user.username === currentUser.username;
+        $scope.hitLike = function (post) {
+            if(isLiked(post.likes, currentUser)) {
+                // unlike
+                post.isLiked = false;
+                _.remove(post.likes, function(user) {
+                    return user._id === currentUser._id;
                 });
+            } else {
+                // like
+                post.isLiked = true;
+                post.likes.push(currentUser);
             }
             
             // update to db
-
+            postsService.updatePost(post).then(function(data) {
+                // reload post
+                _.extend(post, data);
+                post.isLiked = isLiked(post.likes, currentUser);
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
         };
 
-        $scope.hitComment = function (feed) {
-            $scope.isCommentFocused = true;
+        $scope.hitComment = function () {
+            this.isCommentFocused = true;
         };
 
-        $scope.addComment = function (feed) {
+        $scope.addComment = function (post) {
+            var self = this;
             var newComment = {
-                content: $scope.commentText,
-                user: authService.currentUser,
-                created: new Date()
+                post: post._id,
+                content: self.commentText
             };
 
-            feed.comments.push(newComment);
-
             // update to db
+            commentsService.insertComment(newComment).then(function(data) {
+                post.comments.push(data);
+                self.commentText = '';
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
+        };
 
-            $scope.commentText = '';
+        $scope.deletePost = function(post) {
+            postsService.deletePost(post._id).then(function(data) {
+                // remove post from feed
+                _.remove($scope.posts, post);
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
+        };
+
+        $scope.deleteComment = function(post, comment) {
+            commentsService.deleteComment(comment._id).then(function(data) {
+                // reload post
+                _.extend(post, data);
+                post.isLiked = isLiked(post.likes, currentUser);
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
         };
 
         function init() {
             // fetch data from service
+            postsService.getPosts().then(function (data) {
+                $scope.posts = data;
+                // check like of currentUser for each post
+                $scope.posts.forEach(function(post){
+                    post.isLiked = isLiked(post.likes, currentUser);
+                });
+            }, function (error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
+        }
 
-            // check isLiked of currentUser for each feed
-
+        function isLiked(likes, currentUser) {
+            var index = _.findIndex(likes, function(user){
+                return user._id === currentUser._id;
+            });
+            if(index < 0){
+                return false;
+            } else {
+                return true;
+            }
         }
 
         init();

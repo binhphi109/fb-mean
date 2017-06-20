@@ -11,7 +11,7 @@ var config = require('../lib/config'),
 // Load the mongoose models
 module.exports.loadModels = function (callback) {
     // Globbing model files
-    config.files.server.models.forEach(function (modelPath) {
+    config.files.models.forEach(function (modelPath) {
         require(path.resolve(modelPath));
     });
 

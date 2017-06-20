@@ -85,7 +85,8 @@ var initGlobalConfig = function () {
 
     config.files = {};
     // Setting Globbed route files
-    config.files.routes = getGlobbedPaths(['server/routes/**/*.js']);
+    config.files.routes = getGlobbedPaths(['server/routes/**/!(core)Routes.js', 'server/routes/coreRoutes.js']);
+    config.files.models = getGlobbedPaths(['server/models/**/*.js']);
 
     return config;
 };

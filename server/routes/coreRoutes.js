@@ -3,12 +3,12 @@
 /**
  * Module dependencies.
  */
-var controller = require('../controllers/indexController');
+var controller = require('../controllers/coreController');
 
 module.exports = function (app) {
     // Routes
     app.route('/').get(controller.index);
 
     // redirect all others to the index (HTML5 history)
-    app.route('*').get(controller.index);
+    app.route('/*').get(controller.index);
 };

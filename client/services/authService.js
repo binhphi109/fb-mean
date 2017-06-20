@@ -6,6 +6,7 @@
         var serviceBase = '/api/v1/',
             factory = {
                 currentUser: {
+                    _id: '5947cb258d4e0744ecf99ceb',
                     username: 'kugoo109',
                     email: 'kugoo109@gmail.com',
                     displayName: 'Binh-Phi Nguyen',
@@ -13,6 +14,13 @@
                 isAuthenticated: false,
                 roles: null
             };
+
+        factory.register = function (user) {
+            return $http.post(serviceBase + 'register', user).then(function (results) {
+                user.id = results.data.id;
+                return results.data;
+            });
+        };
 
         factory.login = function (email, password) {
             return $http.post(serviceBase + 'login', { userName: email, password: password }).then(

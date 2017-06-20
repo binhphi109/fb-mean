@@ -7,7 +7,7 @@ var path = require('path'),
     _ = require('lodash');
 
 /**
- * GET home page.
+ * Render main page.
  */
 exports.index = function(req, res){
     res.render('index');

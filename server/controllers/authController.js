@@ -5,14 +5,24 @@
  */
 var path = require('path'),
     mongoose = require('mongoose'),
-    passport = require('passport');
-    // User = mongoose.model('User');
+    passport = require('passport'),
+    User = mongoose.model('User');
 
 /**
  * Register
  */
 exports.register = function (req, res) {
-    
+    var user = new User(req.body);
+
+    user.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(user);
+        }
+    });
 };
 
 /**
