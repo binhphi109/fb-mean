@@ -26,7 +26,6 @@
 
     LoginController.$inject = injectParams;
 
-    angular.module('myApp')
-        .controller('LoginController', LoginController);
+    angular.module('myApp').controller('LoginController', LoginController);
 
 }());

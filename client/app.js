@@ -8,7 +8,8 @@
 
         $stateProvider
             .state('main', {
-                abstract: true,
+                //abstract: true,
+                controller: 'MainController',
                 templateUrl: viewBase + 'main.html'
             })
             .state('main.home', {
@@ -20,6 +21,11 @@
                 url: '/profile/:username',
                 controller: 'ProfileController',
                 templateUrl: viewBase + 'profile.html'
+            })
+            .state('register', {
+                url: '/register',
+                controller: 'LoginController',
+                templateUrl: viewBase + 'register.html'
             })
             .state('login', {
                 url: '/login',
