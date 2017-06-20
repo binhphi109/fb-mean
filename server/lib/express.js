@@ -74,6 +74,15 @@ module.exports.initSession = function (app, db) {
 };
 
 /**
+ * Configure Authentication configuration
+ */
+module.exports.initAuthentication = function (app) {
+    // Use Passport to authenticate
+    var passport = require('../lib/passport');
+    passport(app);
+};
+
+/**
  * Configure Helmet headers configuration
  */
 module.exports.initHelmetHeaders = function (app) {
@@ -119,6 +128,9 @@ module.exports.init = function (db) {
 
     // Initialize Express session
     this.initSession(app, db);
+
+    // Initialize Authentication
+    this.initAuthentication(app);
 
     // Initialize Helmet security headers
     this.initHelmetHeaders(app);

@@ -1,25 +1,49 @@
 ﻿(function () {
 
-    var injectParams = ['$scope', '$state', '$stateParams', 'authService'];
+    var injectParams = ['$scope', '$state', '$stateParams', '$window', 'authService'];
 
-    var LoginController = function ($scope, $state, $stateParams, authService) {
+    var LoginController = function ($scope, $state, $stateParams, $window, authService) {
         var path = '/';
 
+        $scope.displayName = null;
         $scope.email = null;
+        $scope.username = null;
         $scope.password = null;
         $scope.errorMessage = null;
 
         $scope.login = function () {
-            authService.login($scope.email, $scope.password).then(function (status) {
+            authService.signin($scope.username, $scope.password).then(function (status) {
                 //$stateParams.redirect will have the route
                 //they were trying to go to initially
                 if (!status) {
                     $scope.errorMessage = 'Unable to login';
                     return;
                 }
-
                 // And redirect to the previous or home page
-                $state.go($state.previous.state.name || 'home', $state.previous.params);
+                $state.go($state.previous.state.name || 'main.home', $state.previous.params);
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
+        };
+
+        $scope.register = function () {
+            var user = {
+                displayName: $scope.displayName,
+                email: $scope.email,
+                password: $scope.password
+            };
+
+            authService.signup(user).then(function (status) {
+                //$stateParams.redirect will have the route
+                //they were trying to go to initially
+                if (!status) {
+                    $scope.errorMessage = 'Unable to register';
+                    return;
+                }
+                // And redirect to the previous or home page
+                $state.go($state.previous.state.name || 'main.home', $state.previous.params);
+            }, function(error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
     };

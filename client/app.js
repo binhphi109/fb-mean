@@ -10,17 +10,20 @@
             .state('main', {
                 //abstract: true,
                 controller: 'MainController',
-                templateUrl: viewBase + 'main.html'
+                templateUrl: viewBase + 'main.html',
+                secure: true
             })
             .state('main.home', {
                 url: '/',
                 controller: 'FeedController',
-                templateUrl: viewBase + 'feed.html'
+                templateUrl: viewBase + 'feed.html',
+                secure: true
             })
             .state('main.profile', {
                 url: '/profile/:username',
                 controller: 'ProfileController',
-                templateUrl: viewBase + 'profile.html'
+                templateUrl: viewBase + 'profile.html',
+                secure: true
             })
             .state('register', {
                 url: '/register',
@@ -47,7 +50,7 @@
                 }
 
                 if (toState && toState.secure) {
-                    if (!authService.user.isAuthenticated) {
+                    if (!authService.isAuthenticated) {
                         $rootScope.$evalAsync(function () {
                             $state.go('login').then(function () {
                                 storePreviousState(toState, toParams);

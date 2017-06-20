@@ -1,38 +1,24 @@
 ﻿(function () {
 
-    var injectParams = ['$scope', '$location', '$state', 'config', 'authService'];
+    var injectParams = ['$scope', '$location', '$state', '$window', 'config', 'authService'];
 
-    var MainController = function ($scope, $location, $state, config, authService) {
+    var MainController = function ($scope, $location, $state, $window, config, authService) {
 
-        $scope.isCollapsed = false;
         $scope.appTitle = 'Facebook Lite';
+        $scope.currentUser = authService.currentUser;
 
-        $scope.highlight = function (path) {
-            return $location.path().substr(0, path.length) === path;
-        };
-
-        $scope.loginOrOut = function () {
-            setLoginLogoutText();
+        $scope.logout = function () {
             var isAuthenticated = authService.isAuthenticated;
-            if (isAuthenticated) { //logout 
-                authService.logout().then(function () {
-                    $state.go('home');
+            if (isAuthenticated) { 
+                authService.signout().then(function (results) {
+                    $state.go('login');
                     return;
+                }, function(error) {
+                    $window.alert('Sorry, an error occurred: ' + error.data.message);
                 });                
             }
             $state.go('login');
         };
-
-        $scope.$on('loginStatusChanged', function (loggedIn) {
-            setLoginLogoutText(loggedIn);
-        });
-
-        function setLoginLogoutText() {
-            $scope.loginLogoutText = (authService.isAuthenticated) ? 'Logout' : 'Login';
-        }
-
-        setLoginLogoutText();
-
     };
 
     MainController.$inject = injectParams;

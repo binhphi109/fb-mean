@@ -15,7 +15,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
     var comment = new Comment(req.body);
-    comment.user = '5947cb258d4e0744ecf99ceb'; //req.user; fake user
+    comment.user = req.user;
 
     comment.save(function(err) {
         if (err) {

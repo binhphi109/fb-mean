@@ -5,45 +5,36 @@
     var authFactory = function ($http, $rootScope) {
         var serviceBase = '/api/v1/',
             factory = {
-                currentUser: {
-                    _id: '5947cb258d4e0744ecf99ceb',
-                    username: 'kugoo109',
-                    email: 'kugoo109@gmail.com',
-                    displayName: 'Binh-Phi Nguyen',
-                },
+                currentUser: {},
                 isAuthenticated: false,
                 roles: null
             };
 
-        factory.register = function (user) {
-            return $http.post(serviceBase + 'register', user).then(function (results) {
-                user.id = results.data.id;
-                return results.data;
+        factory.signup = function (user) {
+            return $http.post(serviceBase + 'signup', user).then(function (results) {
+                factory.currentUser = results.data;
+                factory.isAuthenticated = true;
+                return true;
             });
         };
 
-        factory.login = function (email, password) {
-            return $http.post(serviceBase + 'login', { userName: email, password: password }).then(
-                function (results) {
-                    var loggedIn = results.data.status;;
-                    changeAuth(loggedIn);
-                    return loggedIn;
+        factory.signin = function (username, password) {
+            return $http.post(serviceBase + 'signin', { username: username, password: password })
+                .then(function (results) {
+                    factory.currentUser = results.data;
+                    factory.isAuthenticated = true;
+                    return true;
                 });
         };
 
-        factory.logout = function () {
-            return $http.post(serviceBase + 'logout').then(
-                function (results) {
-                    var loggedIn = !results.data.status;
-                    changeAuth(loggedIn);
-                    return loggedIn;
+        factory.signout = function () {
+            return $http.post(serviceBase + 'signout')
+                .then(function (results) {
+                    factory.currentUser = {};
+                    factory.isAuthenticated = false;
+                    return false;
                 });
         };
-
-        function changeAuth(loggedIn) {
-            factory.isAuthenticated = loggedIn;
-            $rootScope.$broadcast('loginStatusChanged', loggedIn);
-        }
 
         return factory;
     };

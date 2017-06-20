@@ -14,7 +14,7 @@ var path = require('path'),
  */
 exports.create = function(req, res) {
     var post = new Post(req.body);
-    post.user = '5947cb258d4e0744ecf99ceb'; //req.user; fake user
+    post.user = req.user;
 
     post.save(function(err) {
         if (err) {
