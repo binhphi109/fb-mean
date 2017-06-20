@@ -1,67 +1,368 @@
-<div class="col-lg-6" ng-repeat="post in posts">
-                        
-    <div class="social-feed-box">
+<div class="row">
+    <div class="col-lg-7">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Status</h5>
+            </div>
+            <div>
+                <div class="ibox-content">
+                    <div class="post-avatar">
+                        <a href="#" class="pull-left">
+                            <img alt="image" src="img/profile/default.jpg">
+                        </a>
+                        <div class="media-body">
+                            <div class="">
+                            <textarea class="form-control" placeholder="What's on your mind?"></textarea>
+                            </div>
+                            <div class="m-t-sm pull-right">
+                                <button class="btn btn-sm btn-primary">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="pull-right social-action dropdown">
-            <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                <i class="fa fa-angle-down"></i>
-            </button>
-            <ul class="dropdown-menu m-t-xs">
-                <li><a href="#" ng-click="deletePost(post)">Delete</a></li>
-            </ul>
-        </div>
-        <div class="social-avatar">
-            <a href="#" class="pull-left">
-                <img alt="image" src="img/profile/default.jpg">
-            </a>
-            <div class="media-body">
-                <a href="#">
-                    {{ post.user.displayName }}
-                </a>
-                <small class="text-muted">{{ post.created }}</small>
-            </div>
-        </div>
-        <div class="social-body">
-            {{ post.content }}
-            <img src="img/gallery/11.jpg" class="img-responsive">
-            <div class="btn-group">
-                <button class="btn btn-xs" ng-class="post.isLiked ? 'btn-primary' : 'btn-white'" ng-click="hitLike(post)">
-                    <i class="fa fa-thumbs-up"></i> {{ post.likes.length }} Like
+        <div class="social-feed-box" ng-repeat="post in posts">
+            <div class="pull-right social-action dropdown">
+                <button data-toggle="dropdown" class="dropdown-toggle btn-white">
+                    <i class="fa fa-angle-down"></i>
                 </button>
-                <button class="btn btn-white btn-xs" ng-click="hitComment()"><i class="fa fa-comments"></i> Comment</button>
+                <ul class="dropdown-menu m-t-xs">
+                    <li><a href="#" ng-click="deletePost(post)">Delete</a></li>
+                </ul>
             </div>
-        </div>
-        <div class="social-footer">
-            <div class="social-comment box-hover" ng-repeat="comment in post.comments">
+            <div class="social-avatar">
                 <a href="#" class="pull-left">
                     <img alt="image" src="img/profile/default.jpg">
                 </a>
-                <div class="pull-right btn-hover">
-                    <a href="#" ng-click="deleteComment(post, comment)"><i class="fa fa-times"></i></a>
-                </div>
                 <div class="media-body">
                     <a href="#">
-                        {{ comment.user.displayName }}
+                        {{ post.user.displayName }}
                     </a>
-                    {{ comment.content }}
-                    <br/>
-                    <small class="text-muted">{{ comment.created }}</small>
+                    <small class="text-muted">{{ post.created }}</small>
                 </div>
             </div>
-
-            <div class="social-comment">
-                <a href="#" class="pull-left">
-                    <img alt="image" src="img/profile/default.jpg">
-                </a>
-                <div class="media-body">
-                    <textarea class="form-control" placeholder="Write comment..." 
-                        ng-model="commentText" is-focused="isCommentFocused" 
-                        ng-enter="addComment(post)"></textarea>
+            <div class="social-body">
+                {{ post.content }}
+                <img src="img/gallery/11.jpg" class="img-responsive">
+                <div class="btn-group">
+                    <button class="btn btn-xs" ng-class="post.isLiked ? 'btn-primary' : 'btn-white'" ng-click="hitLike(post)">
+                        <i class="fa fa-thumbs-up"></i> {{ post.likes.length }} Like
+                    </button>
+                    <button class="btn btn-white btn-xs" ng-click="hitComment()"><i class="fa fa-comments"></i> Comment</button>
                 </div>
             </div>
+            <div class="social-footer">
+                <div class="social-comment box-hover" ng-repeat="comment in post.comments">
+                    <a href="#" class="pull-left">
+                        <img alt="image" src="img/profile/default.jpg">
+                    </a>
+                    <div class="pull-right btn-hover">
+                        <a href="#" ng-click="deleteComment(post, comment)"><i class="fa fa-times"></i></a>
+                    </div>
+                    <div class="media-body">
+                        <a href="#">
+                            {{ comment.user.displayName }}
+                        </a>
+                        {{ comment.content }}
+                        <br/>
+                        <small class="text-muted">{{ comment.created }}</small>
+                    </div>
+                </div>
 
+                <div class="social-comment">
+                    <a href="#" class="pull-left">
+                        <img alt="image" src="img/profile/default.jpg">
+                    </a>
+                    <div class="media-body">
+                        <textarea class="form-control" placeholder="Write comment..." 
+                            ng-model="commentText" is-focused="isCommentFocused" 
+                            ng-enter="addComment(post)"></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
+    <div class="col-lg-5">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Activity stream</h5>
+            </div>
+
+            <div class="ibox-content">
+
+                <div class="activity-stream">
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a5.jpg" />
+                                    <span>Karen Miggel</span>
+                                    <span class="date">Today at 01:32:40 am</span>
+                                </a>
+                            </div>
+                            Add new note to the <a href="#">Martex</a>  project.
+                        </div>
+                    </div>
+
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-commenting-o"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a4.jpg" />
+                                    <span>John Mikkens</span>
+                                    <span class="date">Yesterday at 10:00:20 am</span>
+                                </a>
+                            </div>
+                            Commented on <a href="#">Ariana</a> profile.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a2.jpg" />
+                                    <img src="img/a3.jpg" />
+                                    <img src="img/a4.jpg" />
+                                    <span>Mike Johnson, Monica Smith and Karen Dortmund</span>
+                                    <span class="date">Yesterday at 02:13:20 am</span>
+                                </a>
+                            </div>
+                            Changed status of third stage in the <a href="#">Vertex</a> project.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a6.jpg" />
+                                    <span>Jessica Smith</span>
+                                    <span class="date">Yesterday at 08:14:41 am</span>
+                                </a>
+                            </div>
+                            Add new files to own file sharing place.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-send bg-primary"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a7.jpg" />
+                                    <img src="img/a1.jpg" />
+                                    <span>Martha Farter and Mike Rodgers</span>
+                                    <span class="date">Yesterday at 04:18:13 am</span>
+                                </a>
+                            </div>
+                            Sent email to all users participating in new project.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-tag bg-warning"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a7.jpg" />
+                                    <span>Mark Mickens</span>
+                                    <span class="date">Yesterday at 06:00:30 am</span>
+                                </a>
+                            </div>
+                            Has been taged in the latest comments about the new project.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a8.jpg" />
+                                    <span>Mike Johnson</span>
+                                    <span class="date">Yesterday at 02:13:20 am</span>
+                                </a>
+                            </div>
+                            Changed status of second stage in the latest project.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a1.jpg" />
+                                    <span>Jessica Smith</span>
+                                    <span class="date">Yesterday at 08:14:41 am</span>
+                                </a>
+                            </div>
+                            Add new files to own file sharing place.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a6.jpg" />
+                                    <span>Jessica Smith</span>
+                                    <span class="date">Yesterday at 08:14:41 am</span>
+                                </a>
+                            </div>
+                            Add new files to own file sharing place.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-send"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a7.jpg" />
+                                    <span>Martha Farter</span>
+                                    <span class="date">Yesterday at 04:18:13 am</span>
+                                </a>
+                            </div>
+                            Sent email to all users participating in new project.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-sliders bg-success"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a2.jpg" />
+                                    <span>Mark Mickens</span>
+                                    <span class="date">Yesterday at 06:00:30 am</span>
+                                </a>
+                            </div>
+                            Has been taged in the latest comments about the new project.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a8.jpg" />
+                                    <span>Mike Johnson</span>
+                                    <span class="date">Yesterday at 02:13:20 am</span>
+                                </a>
+                            </div>
+                            Changed status of second stage in the latest project.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a1.jpg" />
+                                    <span>Jessica Smith</span>
+                                    <span class="date">Yesterday at 08:14:41 am</span>
+                                </a>
+                            </div>
+                            Add new files to own file sharing place.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a5.jpg" />
+                                    <img src="img/a2.jpg" />
+                                    <span>Karen Johnson and Sasha Miggel</span>
+                                    <span class="date">Today at 01:32:40 am</span>
+                                </a>
+                            </div>
+                            Add new note to the <a href="#">Martex</a>  project.
+                        </div>
+                    </div>
+
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-commenting-o"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a4.jpg" />
+                                    <span>John Mikkens</span>
+                                    <span class="date">Yesterday at 10:00:20 am</span>
+                                </a>
+                            </div>
+                            Commented on <a href="#">Ariana</a> profile.
+                        </div>
+                    </div>
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a2.jpg" />
+                                    <span>Mike Johnson</span>
+                                    <span class="date">Yesterday at 02:13:20 am</span>
+                                </a>
+                            </div>
+                            Changed status of third stage in the <a href="#">Vertex</a> project.
+                        </div>
+                    </div>
+
+                    <div class="stream">
+                        <div class="stream-badge">
+                            <i class="fa fa-circle"></i>
+                        </div>
+                        <div class="stream-panel">
+                            <div class="stream-info">
+                                <a href="#">
+                                    <img src="img/a6.jpg" />
+                                    <span>Jessica Smith</span>
+                                    <span class="date">Yesterday at 08:14:41 am</span>
+                                </a>
+                            </div>
+                            Add new files to own file sharing place.
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>

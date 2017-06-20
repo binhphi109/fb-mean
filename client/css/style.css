@@ -1,2 +1,19 @@
-.box-hover .btn-hover a { visibility: hidden; }
-.box-hover:hover .btn-hover a { visibility: visible; }
+.box-hover .btn-hover a { 
+    visibility: hidden; 
+}
+.box-hover:hover .btn-hover a { 
+    visibility: visible; 
+}
+
+.post-avatar {
+  padding: 0 0 0 0;
+}
+.post-avatar img {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+.post-avatar .media-body a {
+  font-size: 14px;
+  display: block;
+}

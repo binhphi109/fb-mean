@@ -16,6 +16,11 @@
                 controller: 'FeedController',
                 templateUrl: viewBase + 'feed.html'
             })
+            .state('main.profile', {
+                url: '/profile',
+                controller: 'ProfileController',
+                templateUrl: viewBase + 'profile.html'
+            })
             .state('login', {
                 url: '/login',
                 controller: 'LoginController',
