@@ -9,6 +9,7 @@
         var currentUser = authService.currentUser;
 
         $scope.posts = [];
+        $scope.profileUser = {};
 
         $scope.hitLike = function (post) {
             if(isLiked(post.likes, currentUser)) {
@@ -56,7 +57,8 @@
         $scope.addPost = function() {
             var self = this;
             var newPost = {
-                content: self.postContent
+                content: self.postContent,
+                postAt: 'profile/' + $scope.profileUser.username
             };
 
             // update to db
@@ -90,21 +92,20 @@
         function init() {
             // get profile user info
             usersService.getUserByUsername($stateParams.username).then(function (data) {
-                $scope.profileUser = data;
-                // get posts by user
-                postsService.getPosts(data._id).then(function (data) {
-                    $scope.posts = data;
-                    // check like of currentUser for each post
-                    $scope.posts.forEach(function(post){
-                        post.isLiked = isLiked(post.likes, currentUser);
-                    });
-                }, function (error) {
-                    $window.alert('Sorry, an error occurred: ' + error.data.message);
+                _.extend($scope.profileUser, data);
+            }, function (error) {
+                $window.alert('Sorry, an error occurred: ' + error.data.message);
+            });
+            // get posts by user
+            postsService.getPosts($stateParams.username).then(function (data) {
+                $scope.posts = data;
+                // check like of currentUser for each post
+                $scope.posts.forEach(function(post){
+                    post.isLiked = isLiked(post.likes, currentUser);
                 });
             }, function (error) {
                 $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
-
         }
 
         function isLiked(likes, currentUser) {

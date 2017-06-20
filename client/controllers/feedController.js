@@ -56,7 +56,8 @@
         $scope.addPost = function() {
             var self = this;
             var newPost = {
-                content: self.postContent
+                content: self.postContent,
+                postAt: 'profile/' + currentUser.username
             };
 
             // update to db

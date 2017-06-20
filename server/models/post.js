@@ -30,6 +30,9 @@ var PostSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    postAt: {
+        type: String
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'

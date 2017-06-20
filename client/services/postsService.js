@@ -6,8 +6,8 @@
         var serviceBase = '/api/v1/',
             factory = {};
 
-        factory.getPosts = function (userId) {
-            var params = userId ? '?userId=' + userId : '';
+        factory.getPosts = function (username) {
+            var params = username ? '?username=' + username : '';
             
             return $http.get(serviceBase + 'posts' + params).then(function (results) {
                 return results.data;

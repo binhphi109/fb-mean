@@ -107,8 +107,8 @@ exports.delete = function(req, res) {
  * List of Posts
  */
 exports.list = function(req, res) { 
-    var userId = req.query.userId,
-        query = userId ? { user: userId } : {};
+    var username = req.query.username,
+        query = username ? { postAt: 'profile/' + username } : {};
 
     Post.find(query).sort('-created')
         .populate('user', 'displayName')
