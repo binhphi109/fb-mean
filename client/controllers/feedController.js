@@ -4,8 +4,7 @@
 
     var FeedController = function ($scope, Authentication, postsService, commentsService) {
 
-        var currentUser = Authentication.user;
-
+        $scope.currentUser = Authentication.user;
         $scope.posts = [];
 
         $scope.hitLike = function (post) {
@@ -13,19 +12,19 @@
                 // unlike
                 post.isLiked = false;
                 _.remove(post.likes, function(user) {
-                    return user._id === currentUser._id;
+                    return user._id === $scope.currentUser._id;
                 });
             } else {
                 // like
                 post.isLiked = true;
-                post.likes.push(currentUser);
+                post.likes.push($scope.currentUser);
             }
             
             // update to db
             postsService.updatePost(post).then(function(data) {
                 // reload post
                 _.extend(post, data);
-                post.isLiked = isLiked(post.likes, currentUser);
+                post.isLiked = isLiked(post.likes, $scope.currentUser);
             });
         };
 
@@ -51,7 +50,7 @@
             var self = this;
             var newPost = {
                 content: self.postContent,
-                postAt: 'profile/' + currentUser.username
+                postAt: 'profile/' + $scope.currentUser.username
             };
 
             // update to db
@@ -72,7 +71,7 @@
             commentsService.deleteComment(comment._id).then(function(data) {
                 // reload post
                 _.extend(post, data);
-                post.isLiked = isLiked(post.likes, currentUser);
+                post.isLiked = isLiked(post.likes, $scope.currentUser);
             });
         };
 
@@ -82,7 +81,7 @@
                 $scope.posts = data;
                 // check like of currentUser for each post
                 $scope.posts.forEach(function(post){
-                    post.isLiked = isLiked(post.likes, currentUser);
+                    post.isLiked = isLiked(post.likes, $scope.currentUser);
                 });
             });
         }
