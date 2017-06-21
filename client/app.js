@@ -47,21 +47,20 @@
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 if (toState && toState.secure) {
                     if (!Authentication.user) {
+                        event.preventDefault();
                         authService.checkMe().then(function(status) {
                             if(!status){
                                 // redirect to login
-                                $rootScope.$evalAsync(function () {
-                                    $state.go('login').then(function () {
-                                        storePreviousState(toState, toParams);
-                                    });
-                                });
-                            }
-                        }, function(error) {
-                            // redirect to login
-                            $rootScope.$evalAsync(function () {
                                 $state.go('login').then(function () {
                                     storePreviousState(toState, toParams);
                                 });
+                            } else {
+                                $state.go(toState, toParams);
+                            }
+                        }, function(error) {
+                            // redirect to login
+                            $state.go('login').then(function () {
+                                storePreviousState(toState, toParams);
                             });
                         });
                     }

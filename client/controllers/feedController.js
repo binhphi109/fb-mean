@@ -1,17 +1,15 @@
 (function () {
 
-    var injectParams = ['$scope', '$filter', '$window', '$timeout', 
-        'Authentication', 'postsService', 'commentsService', 'modalService'];
+    var injectParams = ['$scope', 'Authentication', 'postsService', 'commentsService'];
 
-    var FeedController = function ($scope, $filter, $window, $timeout, 
-        Authentication, postsService, commentsService, modalService) {
+    var FeedController = function ($scope, Authentication, postsService, commentsService) {
 
         var currentUser = Authentication.user;
 
         $scope.posts = [];
 
         $scope.hitLike = function (post) {
-            if(isLiked(post.likes, currentUser)) {
+            if(post.isLiked) {
                 // unlike
                 post.isLiked = false;
                 _.remove(post.likes, function(user) {
@@ -28,8 +26,6 @@
                 // reload post
                 _.extend(post, data);
                 post.isLiked = isLiked(post.likes, currentUser);
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -48,8 +44,6 @@
             commentsService.insertComment(newComment).then(function(data) {
                 post.comments.push(data);
                 self.commentContent = '';
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -64,8 +58,6 @@
             postsService.insertPost(newPost).then(function(data) {
                 $scope.posts.unshift(data);
                 self.postContent = '';
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -73,8 +65,6 @@
             postsService.deletePost(post._id).then(function(data) {
                 // remove post from feed
                 _.remove($scope.posts, post);
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -83,8 +73,6 @@
                 // reload post
                 _.extend(post, data);
                 post.isLiked = isLiked(post.likes, currentUser);
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -96,8 +84,6 @@
                 $scope.posts.forEach(function(post){
                     post.isLiked = isLiked(post.likes, currentUser);
                 });
-            }, function (error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         }
 

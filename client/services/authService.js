@@ -30,7 +30,7 @@
 
         factory.signout = function () {
             return $http.post(serviceBase + 'signout').then(function (results) {
-                Authentication.user = {};
+                Authentication.user = null;
                 return false;
             });
         };

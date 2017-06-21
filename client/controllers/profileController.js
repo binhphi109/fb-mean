@@ -1,18 +1,18 @@
 (function () {
 
-    var injectParams = ['$scope', '$stateParams', '$filter', '$window', '$timeout', 
-        'Authentication', 'authService', 'usersService', 'postsService', 'commentsService', 'modalService'];
+    var injectParams = ['$scope', '$stateParams', 'Authentication', 'usersService', 
+        'postsService', 'commentsService'];
 
-    var ProfileController = function ($scope, $stateParams, $filter, $window, $timeout, 
-        Authentication, authService, usersService, postsService, commentsService, modalService) {
+    var ProfileController = function ($scope, $stateParams, Authentication, usersService, 
+        postsService, commentsService) {
 
         var currentUser = Authentication.user;
 
-        $scope.posts = [];
         $scope.profileUser = {};
+        $scope.posts = [];
 
         $scope.hitLike = function (post) {
-            if(isLiked(post.likes, currentUser)) {
+            if(post.isLiked) {
                 // unlike
                 post.isLiked = false;
                 _.remove(post.likes, function(user) {
@@ -29,8 +29,6 @@
                 // reload post
                 _.extend(post, data);
                 post.isLiked = isLiked(post.likes, currentUser);
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -49,8 +47,6 @@
             commentsService.insertComment(newComment).then(function(data) {
                 post.comments.push(data);
                 self.commentContent = '';
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -65,8 +61,6 @@
             postsService.insertPost(newPost).then(function(data) {
                 $scope.posts.unshift(data);
                 self.postContent = '';
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -74,8 +68,6 @@
             postsService.deletePost(post._id).then(function(data) {
                 // remove post from feed
                 _.remove($scope.posts, post);
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -84,8 +76,6 @@
                 // reload post
                 _.extend(post, data);
                 post.isLiked = isLiked(post.likes, currentUser);
-            }, function(error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
 
@@ -93,8 +83,6 @@
             // get profile user info
             usersService.getProfile($stateParams.username).then(function (data) {
                 _.extend($scope.profileUser, data);
-            }, function (error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
             // get posts by user
             postsService.getPosts($stateParams.username).then(function (data) {
@@ -103,11 +91,10 @@
                 $scope.posts.forEach(function(post){
                     post.isLiked = isLiked(post.likes, currentUser);
                 });
-            }, function (error) {
-                $window.alert('Sorry, an error occurred: ' + error.data.message);
+                
             });
         }
-
+        
         function isLiked(likes, currentUser) {
             var index = _.findIndex(likes, function(user){
                 return user._id === currentUser._id;
