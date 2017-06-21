@@ -1,7 +1,7 @@
 ﻿(function () {
 
     var app = angular.module('myApp',
-        ['ui.router', 'ui.bootstrap']);
+        ['ui.router', 'ui.bootstrap', 'angularMoment']);
 
     app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         var viewBase = '/views/';
