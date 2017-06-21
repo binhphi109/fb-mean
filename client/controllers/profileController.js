@@ -1,12 +1,12 @@
 (function () {
 
     var injectParams = ['$scope', '$stateParams', '$filter', '$window', '$timeout', 
-        'authService', 'usersService', 'postsService', 'commentsService', 'modalService'];
+        'Authentication', 'authService', 'usersService', 'postsService', 'commentsService', 'modalService'];
 
     var ProfileController = function ($scope, $stateParams, $filter, $window, $timeout, 
-        authService, usersService, postsService, commentsService, modalService) {
+        Authentication, authService, usersService, postsService, commentsService, modalService) {
 
-        var currentUser = authService.currentUser;
+        var currentUser = Authentication.user;
 
         $scope.posts = [];
         $scope.profileUser = {};
@@ -91,7 +91,7 @@
 
         function init() {
             // get profile user info
-            usersService.getUserByUsername($stateParams.username).then(function (data) {
+            usersService.getProfile($stateParams.username).then(function (data) {
                 _.extend($scope.profileUser, data);
             }, function (error) {
                 $window.alert('Sorry, an error occurred: ' + error.data.message);

@@ -1,12 +1,12 @@
 (function () {
 
     var injectParams = ['$scope', '$filter', '$window', '$timeout', 
-        'authService', 'postsService', 'commentsService', 'modalService'];
+        'Authentication', 'postsService', 'commentsService', 'modalService'];
 
     var FeedController = function ($scope, $filter, $window, $timeout, 
-        authService, postsService, commentsService, modalService) {
+        Authentication, postsService, commentsService, modalService) {
 
-        var currentUser = authService.currentUser;
+        var currentUser = Authentication.user;
 
         $scope.posts = [];
 

@@ -70,6 +70,13 @@ exports.signin = function (req, res, next) {
 };
 
 /**
+ * Send User
+ */
+exports.checkme = function (req, res) {
+    res.json(req.user || null);
+};
+
+/**
  * Signout
  */
 exports.signout = function (req, res) {

@@ -4,16 +4,14 @@
  * Module dependencies.
  */
 var baseUrl = '/api/v1/',
-    api = require('../controllers/usersController');
+    users = require('../controllers/usersController');
 
 module.exports = function (app) {
     // Post Routes
-    app.route(baseUrl + 'Users')
-        .post(api.create);
+    app.route(baseUrl + 'users/:userId').get(users.read);
+    app.route(baseUrl + 'profile/:username').get(users.read);
 
-    app.route(baseUrl + 'Users/:username')
-        .get(api.read);
-
-    // Finish by binding the Blog middleware
-    app.param('username', api.userByUsername);
+    // Finish by binding the User middleware
+    app.param('userId', users.userByID);
+    app.param('username', users.userByName);
 };

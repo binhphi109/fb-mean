@@ -40,25 +40,38 @@
 
     }]);
 
-    app.run(['$rootScope', '$state', 'authService',
-        function ($rootScope, $state, authService) {
+    app.run(['$rootScope', '$state', 'Authentication', 'authService',
+        function ($rootScope, $state, Authentication, authService) {
             //Client-side security. Server-side framework MUST add it's 
             //own security as well since client-based security is easily hacked
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-                if(toState.name === 'login') {
-                    storePreviousState(fromState, fromParams);
-                }
-
                 if (toState && toState.secure) {
-                    if (!authService.isAuthenticated) {
-                        $rootScope.$evalAsync(function () {
-                            $state.go('login').then(function () {
-                                storePreviousState(toState, toParams);
+                    if (!Authentication.user) {
+                        authService.checkMe().then(function(status) {
+                            if(!status){
+                                // redirect to login
+                                $rootScope.$evalAsync(function () {
+                                    $state.go('login').then(function () {
+                                        storePreviousState(toState, toParams);
+                                    });
+                                });
+                            }
+                        }, function(error) {
+                            // redirect to login
+                            $rootScope.$evalAsync(function () {
+                                $state.go('login').then(function () {
+                                    storePreviousState(toState, toParams);
+                                });
                             });
                         });
                     }
                 }
             });
+
+            // // Record previous state
+            // $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            //     storePreviousState(fromState, fromParams);
+            // });
 
             // Store previous state
             function storePreviousState(state, params) {

@@ -9,37 +9,42 @@ var path = require('path'),
     User = mongoose.model('User');
 
 /**
- * Create a User
- */
-exports.create = function(req, res) {
-    var user = new User(req.body);
-
-    user.save(function(err) {
-        if (err) {
-            return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-            });
-        } else {
-            res.jsonp(user);
-        }
-    });
-};
-
-/**
- * Show the current User
+ * Show the Profile of User
  */
 exports.read = function(req, res) {
     // convert mongoose document to JSON
-    var user = req.user ? req.user.toJSON() : {};
-
+    var user = req.profile ? req.profile.toJSON() : {};
     res.jsonp(user);
 };
 
 /**
  * User middleware
  */
-exports.userByUsername = function(req, res, next, username) {
+exports.userByID = function(req, res, next, id) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({
+            message: 'User is invalid'
+        });
+    }
 
+    User.findById(id).exec(function (err, user) {
+        if (err) {
+            return next(err);
+        } else if (!user) {
+            return res.status(404).send({
+                message: 'No User with that name has been found'
+            });
+        }
+        // Remove sensitive data
+        user.password = undefined;
+        user.salt = undefined;
+
+        req.profile = user;
+        next();
+    });
+};
+
+exports.userByName = function(req, res, next, username) {
     if (!username) {
         return res.status(400).send({
             message: 'User is invalid'
@@ -55,7 +60,11 @@ exports.userByUsername = function(req, res, next, username) {
                     message: 'No User with that name has been found'
                 });
             }
-            req.user = user;
+            // Remove sensitive data
+            user.password = undefined;
+            user.salt = undefined;
+
+            req.profile = user;
             next();
         });
 };

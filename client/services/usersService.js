@@ -6,15 +6,8 @@
         var serviceBase = '/api/v1/',
             factory = {};
 
-        factory.insertUser = function (user) {
-            return $http.post(serviceBase + 'users', user).then(function (results) {
-                user.id = results.data.id;
-                return results.data;
-            });
-        };
-
-        factory.getUserByUsername = function (username) {
-            return $http.get(serviceBase + 'users/' + username).then(function (results) {
+        factory.getProfile = function (username) {
+            return $http.get(serviceBase + 'profile/' + username).then(function (results) {
                 return results.data;
             });
         };

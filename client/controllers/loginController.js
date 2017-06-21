@@ -20,7 +20,7 @@
                     return;
                 }
                 // And redirect to the previous or home page
-                $state.go($state.previous.state.name || 'main.home', $state.previous.params);
+                redirectToPrevious($state.previous);
             }, function(error) {
                 $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
@@ -41,11 +41,19 @@
                     return;
                 }
                 // And redirect to the previous or home page
-                $state.go($state.previous.state.name || 'main.home', $state.previous.params);
+                redirectToPrevious($state.previous);
             }, function(error) {
                 $window.alert('Sorry, an error occurred: ' + error.data.message);
             });
         };
+
+        function redirectToPrevious(previous) {
+            if(previous){
+                $state.go($state.previous.state.name, $state.previous.params);
+            } else {
+                $state.go('main.home');
+            }
+        }
     };
 
     LoginController.$inject = injectParams;

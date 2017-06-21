@@ -1,15 +1,14 @@
 ﻿(function () {
 
-    var injectParams = ['$scope', '$location', '$state', '$window', 'config', 'authService'];
+    var injectParams = ['$scope', '$location', '$state', '$window', 'config', 'Authentication', 'authService'];
 
-    var MainController = function ($scope, $location, $state, $window, config, authService) {
+    var MainController = function ($scope, $location, $state, $window, config, Authentication, authService) {
 
         $scope.appTitle = 'Facebook Lite';
-        $scope.currentUser = authService.currentUser;
+        $scope.currentUser = Authentication.user;
 
         $scope.logout = function () {
-            var isAuthenticated = authService.isAuthenticated;
-            if (isAuthenticated) { 
+            if (Authentication.user) { 
                 authService.signout().then(function (results) {
                     $state.go('login');
                     return;
