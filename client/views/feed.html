@@ -8,7 +8,7 @@
                 <div class="ibox-content">
                     <div class="post-avatar">
                         <a href="#" class="pull-left">
-                            <img alt="image" src="img/profile/default.jpg">
+                            <img alt="image" ng-src="{{ currentUser.profileImageURL }}">
                         </a>
                         <div class="media-body">
                             <textarea class="form-control" placeholder="What's on your mind?" 
@@ -33,7 +33,7 @@
             </div>
             <div class="social-avatar">
                 <a ui-sref="main.profile({username: post.user.username})" class="pull-left">
-                    <img alt="image" src="img/profile/default.jpg">
+                    <img alt="image" ng-src="{{ post.user.profileImageURL }}">
                 </a>
                 <div class="media-body">
                     <a ui-sref="main.profile({username: post.user.username})">
@@ -43,8 +43,7 @@
                 </div>
             </div>
             <div class="social-body">
-                {{ post.content }}
-                <img src="img/gallery/11.jpg" class="img-responsive">
+                <p>{{ post.content }}</p>
                 <div class="btn-group">
                     <button class="btn btn-xs" ng-class="post.isLiked ? 'btn-primary' : 'btn-white'" ng-click="hitLike(post)">
                         <i class="fa fa-thumbs-up"></i> {{ post.likes.length }} Like
@@ -55,7 +54,7 @@
             <div class="social-footer">
                 <div class="social-comment box-hover" ng-repeat="comment in post.comments">
                     <a ui-sref="main.profile({username: comment.user.username})" class="pull-left">
-                        <img alt="image" src="img/profile/default.jpg">
+                        <img alt="image" ng-src="{{ comment.user.profileImageURL }}">
                     </a>
                     <div class="pull-right btn-hover">
                         <a href="#" ng-click="deleteComment(post, comment)"><i class="fa fa-times"></i></a>
@@ -72,7 +71,7 @@
 
                 <div class="social-comment">
                     <a href="#" class="pull-left">
-                        <img alt="image" src="img/profile/default.jpg">
+                        <img alt="image" ng-src="{{ currentUser.profileImageURL }}">
                     </a>
                     <div class="media-body">
                         <textarea class="form-control" placeholder="Write comment..." 

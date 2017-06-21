@@ -103,7 +103,7 @@ exports.delete = function(req, res) {
             Post.findById(comment.post)
                 .populate({
                     path: 'comments',
-                    populate: { path: 'user', select: 'displayName username' }
+                    populate: { path: 'user', select: 'displayName username profileImageURL' }
                 })
                 .exec(function(err, post){
                     if (err) {
@@ -131,7 +131,7 @@ exports.delete = function(req, res) {
  * List of Comments
  */
 exports.list = function(req, res) { 
-    Comment.find().sort('-created').populate('user', 'displayName username').exec(function(err, comments) {
+    Comment.find().sort('-created').populate('user', 'displayName username profileImageURL').exec(function(err, comments) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -154,7 +154,7 @@ exports.commentByID = function(req, res, next, id) {
     }
 
     Comment.findById(id)
-        .populate('user', 'displayName username')
+        .populate('user', 'displayName username profileImageURL')
         .exec(function (err, comment) {
             if (err) {
                 return next(err);

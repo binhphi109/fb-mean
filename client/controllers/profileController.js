@@ -6,8 +6,7 @@
     var ProfileController = function ($scope, $stateParams, Authentication, usersService, 
         postsService, commentsService) {
 
-        var currentUser = Authentication.user;
-
+        $scope.currentUser = Authentication.user;
         $scope.profileUser = {};
         $scope.posts = [];
 

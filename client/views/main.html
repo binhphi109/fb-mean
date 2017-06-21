@@ -6,7 +6,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element"> 
                         <a href="#" ui-sref="main.profile({username: currentUser.username})">
-                            <span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>
+                            <span><img alt="image" class="img-circle" ng-src="{{ currentUser.profileImageURL }}" /></span>
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ currentUser.displayName }}</strong>
                             </span> 
                         </a>

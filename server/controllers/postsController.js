@@ -57,7 +57,7 @@ exports.update = function(req, res) {
         } else {
             post.populate({
                 path: 'comments',
-                populate: { path: 'user', select: 'displayName' }
+                populate: { path: 'user', select: 'displayName profileImageURL' }
             }, function (err, post){
                 res.jsonp(post);
             });
@@ -111,11 +111,11 @@ exports.list = function(req, res) {
         query = username ? { postAt: 'profile/' + username } : {};
 
     Post.find(query).sort('-created')
-        .populate('user', 'displayName username')
+        .populate('user', 'displayName username profileImageURL')
         .populate('likes', 'displayName')
         .populate({
             path: 'comments',
-            populate: { path: 'user', select: 'displayName username' }
+            populate: { path: 'user', select: 'displayName username profileImageURL' }
         })
         .exec(function(err, posts) {
             if (err) {
@@ -140,11 +140,11 @@ exports.postByID = function(req, res, next, id) {
     }
 
     Post.findById(id)
-        .populate('user', 'displayName username')
+        .populate('user', 'displayName username profileImageURL')
         .populate('likes', 'displayName')
         .populate({
             path: 'comments',
-            populate: { path: 'user', select: 'displayName username' }
+            populate: { path: 'user', select: 'displayName username profileImageURL' }
         })
         .exec(function (err, post) {
             if (err) {

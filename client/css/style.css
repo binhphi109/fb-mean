@@ -4,7 +4,6 @@
 .box-hover:hover .btn-hover a { 
     visibility: visible; 
 }
-
 .post-avatar {
   padding: 0 0 0 0;
 }
@@ -16,4 +15,8 @@
 .post-avatar .media-body a {
   font-size: 14px;
   display: block;
+}
+.profile-element img.img-circle {
+  width: 48px;
+  height: 48px;
 }
