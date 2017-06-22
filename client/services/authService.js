@@ -1,4 +1,6 @@
-﻿(function () {
+﻿'use strict';
+
+(function () {
 
     var injectParams = ['$http', '$rootScope', '$window', 'Authentication'];
 

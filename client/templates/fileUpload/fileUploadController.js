@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
 
     var injectParams = ['$scope', '$timeout', '$window', '$uibModalInstance', 'FileUploader', 'options'];

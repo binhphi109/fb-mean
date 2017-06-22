@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
 
     var injectParams = ['$scope', 'Authentication', 'Common', 'postsService', 'commentsService'];
