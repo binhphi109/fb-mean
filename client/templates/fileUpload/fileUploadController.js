@@ -1,8 +1,10 @@
 (function () {
 
-    var injectParams = ['$scope', '$timeout', '$window', '$uibModalInstance', 'Authentication', 'FileUploader', 'options'];
+    var injectParams = ['$scope', '$timeout', '$window', '$uibModalInstance', 'FileUploader', 'options'];
 
-    var FileUploadController = function ($scope, $timeout, $window, $uibModalInstance, Authentication, FileUploader, options) {
+    var FileUploadController = function ($scope, $timeout, $window, $uibModalInstance, FileUploader, options) {
+
+        var results = {};
 
         $scope.options = {
             url: 'api/v1/upload',
@@ -29,7 +31,7 @@
             }
         });
 
-        // Called after the user selected a new picture file
+        // Called after the user selected a new file file
         $scope.uploader.onAfterAddingFile = function (fileItem) {
             if ($window.FileReader) {
                 var fileReader = new FileReader();
@@ -43,16 +45,16 @@
             }
         };
         
-        // Called after the user has successfully uploaded a new picture
+        // Called after the user has successfully uploaded a new file
         $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
             // Show success message
             $scope.success = true;
 
-            // Populate user object
-            angular.extend(Authentication.user,response);
+            results.fileItem = response;
+            results.response = response;
         };
 
-        // Called after the user has failed to uploaded a new picture
+        // Called after the user has failed to uploaded a new file
         $scope.uploader.onErrorItem = function (fileItem, response, status, headers) {
             // Clear upload buttons
             $scope.uploader.clearQueue();
@@ -76,9 +78,7 @@
             $scope.uploader.clearQueue();
 
             // TODO: Show notification
-            $uibModalInstance.close({
-                status: true
-            });
+            $uibModalInstance.close(results);
         };
 
         // Cancel the upload process

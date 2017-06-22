@@ -19,6 +19,8 @@
                 action: 'Upload Photo'
             }).then(function (results) {
                 if (results) {
+                    // Populate user object
+                    angular.extend(Authentication.user, results.response);
                     // reload data
                     init();
                 }
