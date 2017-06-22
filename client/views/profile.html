@@ -86,7 +86,7 @@
                     <i class="fa fa-angle-down"></i>
                 </button>
                 <ul class="dropdown-menu m-t-xs">
-                    <li><a href="#" ng-click="deletePost(post)">Delete</a></li>
+                    <li><a ng-click="deletePost(post)">Delete</a></li>
                 </ul>
             </div>
             <div class="social-avatar">
@@ -115,7 +115,7 @@
                         <img alt="image"  ng-src="{{ comment.user.profileImageURL }}">
                     </a>
                     <div class="pull-right btn-hover">
-                        <a href="#" ng-click="deleteComment(post, comment)"><i class="fa fa-times"></i></a>
+                        <a ng-click="deleteComment(post, comment)"><i class="fa fa-times"></i></a>
                     </div>
                     <div class="media-body">
                         <a ui-sref="main.profile({username: comment.user.username})">
