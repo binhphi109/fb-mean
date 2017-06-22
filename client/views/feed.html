@@ -7,9 +7,7 @@
             <div>
                 <div class="ibox-content">
                     <div class="post-avatar">
-                        <a href="#" class="pull-left">
-                            <img alt="image" ng-src="{{ currentUser.profileImageURL }}">
-                        </a>
+                        <a class="pull-left"><img alt="image" ng-src="{{ currentUser.profileImageURL }}"></a>
                         <div class="media-body">
                             <textarea class="form-control" placeholder="What's on your mind?" 
                                 ng-model="postContent"></textarea>
@@ -70,9 +68,7 @@
                 </div>
 
                 <div class="social-comment">
-                    <a href="#" class="pull-left">
-                        <img alt="image" ng-src="{{ currentUser.profileImageURL }}">
-                    </a>
+                    <a class="pull-left"><img alt="image" ng-src="{{ currentUser.profileImageURL }}"></a>
                     <div class="media-body">
                         <textarea class="form-control" placeholder="Write comment..." 
                             ng-model="commentContent" is-focused="isCommentFocused" 
