@@ -21,7 +21,6 @@ exports.signup = function (req, res) {
     var message = null;
 
     // Add missing user fields
-    user.username = user.email.split('@')[0];
     user.provider = 'local';
 
     // Then save the user

@@ -30,6 +30,7 @@
             var user = {
                 displayName: $scope.displayName,
                 email: $scope.email,
+                username: $scope.username,
                 password: $scope.password
             };
 
