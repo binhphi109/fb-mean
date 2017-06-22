@@ -1,14 +1,25 @@
 (function () {
 
-    var injectParams = ['$scope', '$stateParams', 'Authentication', 'usersService', 
-        'postsService', 'commentsService'];
+    var injectParams = ['$scope', '$stateParams', 'Authentication', 'Common', 'usersService', 
+        'modalService', 'postsService', 'commentsService'];
 
-    var ProfileController = function ($scope, $stateParams, Authentication, usersService, 
-        postsService, commentsService) {
+    var ProfileController = function ($scope, $stateParams, Authentication, Common, usersService, 
+        modalService, postsService, commentsService) {
 
         $scope.currentUser = Authentication.user;
         $scope.profileUser = {};
         $scope.posts = [];
+
+        $scope.showFileUpload = function() {
+            modalService.showModalWithTemplate('FileUpload', 'fileUpload/', {
+                header: 'Update Profile Picture',
+                action: 'Upload Photo'
+            }).then(function (results) {
+                if (results) {
+                    
+                }
+            });
+        }
 
         $scope.hitLike = function (post) {
             if(post.isLiked) {
@@ -27,7 +38,7 @@
             postsService.updatePost(post).then(function(data) {
                 // reload post
                 _.extend(post, data);
-                post.isLiked = isLiked(post.likes, $scope.currentUser);
+                post.isLiked = Common.isLiked(post.likes, $scope.currentUser);
             });
         };
 
@@ -74,7 +85,7 @@
             commentsService.deleteComment(comment._id).then(function(data) {
                 // reload post
                 _.extend(post, data);
-                post.isLiked = isLiked(post.likes, $scope.currentUser);
+                post.isLiked = Common.isLiked(post.likes, $scope.currentUser);
             });
         };
 
@@ -88,21 +99,9 @@
                 $scope.posts = data;
                 // check like of currentUser for each post
                 $scope.posts.forEach(function(post){
-                    post.isLiked = isLiked(post.likes, $scope.currentUser);
+                    post.isLiked = Common.isLiked(post.likes, $scope.currentUser);
                 });
-                
             });
-        }
-        
-        function isLiked(likes, currentUser) {
-            var index = _.findIndex(likes, function(user){
-                return user._id === currentUser._id;
-            });
-            if(index < 0){
-                return false;
-            } else {
-                return true;
-            }
         }
 
         init();
