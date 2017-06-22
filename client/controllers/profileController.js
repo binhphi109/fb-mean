@@ -6,17 +6,21 @@
     var ProfileController = function ($scope, $stateParams, Authentication, Common, usersService, 
         modalService, postsService, commentsService) {
 
+        $scope.posts = [];
         $scope.currentUser = Authentication.user;
         $scope.profileUser = {};
-        $scope.posts = [];
+        $scope.isEditAllowed = false;
 
         $scope.showFileUpload = function() {
             modalService.showModalWithTemplate('FileUpload', 'fileUpload/', {
+                url: 'api/v1/users/picture',
+                alias: 'newProfilePicture',
                 header: 'Update Profile Picture',
                 action: 'Upload Photo'
             }).then(function (results) {
                 if (results) {
-                    
+                    // reload data
+                    init();
                 }
             });
         }
@@ -93,6 +97,8 @@
             // get profile user info
             usersService.getProfile($stateParams.username).then(function (data) {
                 _.extend($scope.profileUser, data);
+                // check edit permission
+                $scope.isEditAllowed = $scope.profileUser._id === $scope.currentUser._id;
             });
             // get posts by user
             postsService.getPosts($stateParams.username).then(function (data) {

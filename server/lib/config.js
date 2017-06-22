@@ -80,7 +80,16 @@ var initGlobalConfig = function () {
             secure: false
         },
         // sessionSecret should be changed for security measures and concerns
-        sessionSecret: 'Fb-Lite'
+        sessionSecret: 'Fb-Lite',
+        uploads: {
+            profileUpload: {
+                url: 'img/profile/uploads/', // Profile upload destination path
+                dest: 'client/img/profile/uploads/', // Profile upload destination path
+                limits: {
+                    fileSize: 1*1024*1024 // Max file size in bytes (1 MB)
+                }
+            }
+        }
     };
 
     config.files = {};

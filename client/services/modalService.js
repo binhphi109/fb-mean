@@ -66,12 +66,10 @@
             tempDefaults.resolve = {
                 load: ['$q', '$rootScope', function ($q, $rootScope) {
                     var dependencies = [config.directory.templates + path + baseName + 'Controller.js'];
-
                     var defer = $q.defer();
                     // require(dependencies, function () {
                     defer.resolve();
                     // });
-
                     return defer.promise;
                 }],
                 options: options
@@ -101,10 +99,13 @@
 
 // Sample usage of modal with template
 // modalService.showModalWithTemplate('FileUpload', 'fileUpload/', {
+//     url: 'api/v1/users/picture',
+//     alias: 'newProfilePicture',
 //     header: 'Update Profile Picture',
 //     action: 'Upload Photo'
 // }).then(function (results) {
 //     if (results) {
-        
+//         // reload data
+//         init();
 //     }
 // });

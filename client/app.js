@@ -1,7 +1,7 @@
 ﻿(function () {
 
     var app = angular.module('myApp',
-        ['ui.router', 'ui.bootstrap', 'angularMoment']);
+        ['ui.router', 'ui.bootstrap', 'angularMoment', 'angularFileUpload']);
 
     app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         var viewBase = '/views/';
