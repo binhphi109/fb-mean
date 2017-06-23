@@ -30,8 +30,13 @@ var PostSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    kind: {
+        type: String,
+        default: 'User'
+    },
     postAt: {
-        type: String
+        type: Schema.ObjectId,
+        refPath: 'kind'
     },
     user: {
         type: Schema.ObjectId,

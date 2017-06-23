@@ -52,7 +52,7 @@
             var self = this;
             var newPost = {
                 content: self.postContent,
-                postAt: 'profile/' + $scope.currentUser.username
+                postAt: $scope.currentUser._id
             };
 
             // update to db

@@ -107,10 +107,11 @@ exports.delete = function(req, res) {
  * List of Posts
  */
 exports.list = function(req, res) { 
-    var username = req.query.username,
-        query = username ? { postAt: 'profile/' + username } : {};
+    var postAt = req.query.postAt,
+        query = postAt ? { 'postAt': postAt } : {};
 
     Post.find(query).sort('-created')
+        .populate('postAt', 'displayName username profileImageURL')
         .populate('user', 'displayName username profileImageURL')
         .populate('likes', 'displayName')
         .populate({
@@ -140,6 +141,7 @@ exports.postByID = function(req, res, next, id) {
     }
 
     Post.findById(id)
+        .populate('postAt', 'displayName username profileImageURL')
         .populate('user', 'displayName username profileImageURL')
         .populate('likes', 'displayName')
         .populate({

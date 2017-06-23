@@ -72,7 +72,7 @@
             var self = this;
             var newPost = {
                 content: self.postContent,
-                postAt: 'profile/' + $scope.profileUser.username
+                postAt: $scope.profileUser._id
             };
 
             // update to db
@@ -103,13 +103,13 @@
                 _.extend($scope.profileUser, data);
                 // check edit permission
                 $scope.isEditAllowed = $scope.profileUser._id === $scope.currentUser._id;
-            });
-            // get posts by user
-            postsService.getPosts($stateParams.username).then(function (data) {
-                $scope.posts = data;
-                // check like of currentUser for each post
-                $scope.posts.forEach(function(post){
-                    post.isLiked = Common.isLiked(post.likes, $scope.currentUser);
+                // get posts by user
+                postsService.getPosts(data._id).then(function (data) {
+                    $scope.posts = data;
+                    // check like of currentUser for each post
+                    $scope.posts.forEach(function(post){
+                        post.isLiked = Common.isLiked(post.likes, $scope.currentUser);
+                    });
                 });
             });
         }

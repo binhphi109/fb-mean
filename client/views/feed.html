@@ -34,9 +34,15 @@
                     <img alt="image" ng-src="{{ post.user.profileImageURL }}">
                 </a>
                 <div class="media-body">
-                    <a ui-sref="main.profile({username: post.user.username})">
-                        {{ post.user.displayName }}
-                    </a>
+                    <div>
+                        <a ui-sref="main.profile({username: post.user.username})">{{ post.user.displayName }}</a>
+                        <span ng-show="post.postAt.displayName && post.postAt.displayName !== post.user.displayName">
+                            <span>&nbsp;</span>
+                            <i class="fa fa-caret-right"></i>
+                            <span>&nbsp;</span>
+                            <a ui-sref="main.profile({username: post.postAt.username})">{{ post.postAt.displayName }}</a>
+                        </span>
+                    </div>
                     <small class="text-muted"><time title="{{ post.created | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ post.created | amCalendar }}</time></small>
                 </div>
             </div>

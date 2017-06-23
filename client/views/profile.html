@@ -94,9 +94,11 @@
                     <img alt="image" ng-src="{{ post.user.profileImageURL }}">
                 </a>
                 <div class="media-body">
-                    <a ui-sref="main.profile({username: post.user.username})">
-                        {{ post.user.displayName }}
-                    </a>
+                    <div>
+                        <a ui-sref="main.profile({username: post.user.username})">
+                            {{ post.user.displayName }}
+                        </a>
+                    </div>
                     <small class="text-muted"><time title="{{ post.created | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">{{ post.created | amCalendar }}</time></small>
                 </div>
             </div>
