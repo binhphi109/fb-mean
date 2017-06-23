@@ -81,6 +81,10 @@ var initGlobalConfig = function () {
         },
         // sessionSecret should be changed for security measures and concerns
         sessionSecret: 'Fb-Lite',
+        // sessionKey is set to the generic sessionId key used by PHP applications
+        // for obsecurity reasons
+        sessionKey: 'sessionId',
+        sessionCollection: 'sessions',
         uploads: {
             profileUpload: {
                 url: 'img/profile/uploads/', // Profile upload destination path
@@ -96,6 +100,7 @@ var initGlobalConfig = function () {
     // Setting Globbed route files
     config.files.routes = getGlobbedPaths(['server/routes/**/!(core)Routes.js', 'server/routes/coreRoutes.js']);
     config.files.models = getGlobbedPaths(['server/models/**/*.js']);
+    config.files.sockets = getGlobbedPaths(['server/sockets/**/*.js']);
 
     // Expose configuration utilities
     config.utils = {

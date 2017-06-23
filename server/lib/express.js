@@ -7,6 +7,7 @@ var config = require('../lib/config'),
     express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
     compress = require('compression'),
     methodOverride = require('method-override'),
     cookieParser = require('cookie-parser'),
@@ -69,7 +70,12 @@ module.exports.initSession = function (app, db) {
             maxAge: config.sessionCookie.maxAge,
             httpOnly: config.sessionCookie.httpOnly,
             secure: config.sessionCookie.secure && config.secure.ssl
-        }
+        },
+        key: config.sessionKey,
+        store: new MongoStore({
+            mongooseConnection: db.connection,
+            collection: config.sessionCollection
+        })
     }));
 };
 
@@ -114,6 +120,17 @@ module.exports.initRoutes = function (app) {
 };
 
 /**
+ * Configure Socket.io
+ */
+module.exports.configureSocketIO = function (app, db) {
+    // Load the Socket.io configuration
+    var server = require('./socket.io')(app, db);
+
+    // Return server object
+    return server;
+};
+
+/**
  * Initialize the Express application
  */
 module.exports.init = function (db) {
@@ -137,6 +154,9 @@ module.exports.init = function (db) {
 
     // Initialize routes
     this.initRoutes(app);
+
+    // Configure Socket.io
+    app = this.configureSocketIO(app, db);
 
     return app;
 };

@@ -55,12 +55,15 @@ exports.update = function(req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            post.populate({
-                path: 'comments',
-                populate: { path: 'user', select: 'displayName profileImageURL' }
-            }, function (err, post){
-                res.jsonp(post);
-            });
+            post.populate('postAt', 'displayName username profileImageURL')
+                .populate('user', 'displayName username profileImageURL')
+                .populate('likes', 'displayName')
+                .populate({
+                    path: 'comments',
+                    populate: { path: 'user', select: 'displayName username profileImageURL' }
+                }, function (err, post){
+                    res.jsonp(post);
+                });
         }
     });
 };

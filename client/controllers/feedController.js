@@ -2,9 +2,9 @@
 
 (function () {
 
-    var injectParams = ['$scope', 'Authentication', 'Common', 'postsService', 'commentsService'];
+    var injectParams = ['$scope', 'Authentication', 'Socket', 'Common', 'postsService', 'commentsService'];
 
-    var FeedController = function ($scope, Authentication, Common, postsService, commentsService) {
+    var FeedController = function ($scope, Authentication, Socket, Common, postsService, commentsService) {
 
         $scope.currentUser = Authentication.user;
         $scope.posts = [];
@@ -43,10 +43,20 @@
 
             // update to db
             commentsService.insertComment(newComment).then(function(data) {
-                post.comments.push(data);
+                // Emit a 'newComment' message event
+                Socket.emit('newComment', data);
+                // reset comment field
                 self.commentContent = '';
             });
         };
+
+        // Add an event listener to the 'chatMessage' event
+        Socket.on('newComment', function (data) {
+            var post = _.find($scope.posts, function(item) { 
+                return item._id === data._id; 
+            });
+            angular.extend(post, data);
+        });
 
         $scope.addPost = function() {
             var self = this;
@@ -76,6 +86,11 @@
                 post.isLiked = Common.isLiked(post.likes, $scope.currentUser);
             });
         };
+
+        // Remove the event listener when the controller instance is destroyed
+        $scope.$on('$destroy', function () {
+            Socket.removeListener('newComment');
+        });
 
         function init() {
             // fetch data from service

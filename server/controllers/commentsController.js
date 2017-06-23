@@ -23,34 +23,38 @@ exports.create = function(req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            Post.findById(comment.post)
+                .populate('postAt', 'displayName username profileImageURL')
+                .populate('user', 'displayName username profileImageURL')
+                .populate('likes', 'displayName')
+                .populate({
+                    path: 'comments',
+                    populate: { path: 'user', select: 'displayName username profileImageURL' }
+                })
+                .exec(function (err, post) {
 
-            Post.findById(comment.post).populate('comments').exec(function (err, post) {
-
-                if (err) {
-                    return res.status(400).send({
-                        message: errorHandler.getErrorMessage(err)
-                    });
-                } else if (!post) {
-                    return res.status(404).send({
-                        message: 'No Post with that identifier has been found'
-                    });
-                }
-
-                post.comments.push(comment);
-
-                post.save(function(err) {
                     if (err) {
                         return res.status(400).send({
                             message: errorHandler.getErrorMessage(err)
                         });
-                    } else {
-
-                        comment.populate({ path: 'user' }, function (err, comment){
-                            res.jsonp(comment);
+                    } else if (!post) {
+                        return res.status(404).send({
+                            message: 'No Post with that identifier has been found'
                         });
                     }
+
+                    post.comments.push(comment);
+
+                    post.save(function(err) {
+                        if (err) {
+                            return res.status(400).send({
+                                message: errorHandler.getErrorMessage(err)
+                            });
+                        } else {
+                            res.jsonp(post);
+                        }
+                    });
                 });
-            });
         }
     });
 };
@@ -101,6 +105,9 @@ exports.delete = function(req, res) {
             });
         } else {
             Post.findById(comment.post)
+                .populate('postAt', 'displayName username profileImageURL')
+                .populate('user', 'displayName username profileImageURL')
+                .populate('likes', 'displayName')
                 .populate({
                     path: 'comments',
                     populate: { path: 'user', select: 'displayName username profileImageURL' }
