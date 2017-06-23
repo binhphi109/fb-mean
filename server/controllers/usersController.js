@@ -60,9 +60,15 @@ exports.changeProfilePicture = function (req, res) {
  * Show the Profile of User
  */
 exports.read = function(req, res) {
-    // convert mongoose document to JSON
-    var user = req.profile ? req.profile.toJSON() : {};
-    res.jsonp(user);
+    if (req.user) {
+        // convert mongoose document to JSON
+        var profile = req.profile ? req.profile.toJSON() : {};
+        res.jsonp(profile);
+    } else {
+        res.status(400).send({
+            message: 'User is not signed in'
+        });
+    }
 };
 
 /**

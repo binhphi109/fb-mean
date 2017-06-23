@@ -4,15 +4,16 @@
  * Module dependencies.
  */
 var baseUrl = '/api/v1/',
+    policy = require('../policies/commentsPolicy'),
     api = require('../controllers/commentsController');
 
 module.exports = function (app) {
     // Comment Routes
-    app.route(baseUrl + 'Comments')
+    app.route(baseUrl + 'Comments').all(policy.isAllowed)
         .get(api.list)
         .post(api.create);
         
-    app.route(baseUrl + 'Comments/:commentId')
+    app.route(baseUrl + 'Comments/:commentId').all(policy.isAllowed)
         .get(api.read)
         .put(api.update)
         .delete(api.delete);
