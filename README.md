@@ -36,7 +36,7 @@ You can now visit the app in your browser by visiting [http://localhost:3000](ht
 - Activity Stream with Socket.io (coming soon...)
 - Messenger with Socket.io (coming soon...)
 - Status Notification (coming soon...)
-- Show more when scrolling (coming soon...)
+- 'Show more' when scrolling (coming soon...)
 - Error Notification with Toastr (coming soon...)
 - Gulp (coming soon...)
 - Unit Test with Mocha (coming soon...)
