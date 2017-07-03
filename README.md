@@ -1,6 +1,6 @@
-# Facebook-Lite
+# Facebook-MEAN
 
-Facebook Lite is a very basic social networking using a single-page web application. Facebook Lite is built for learning purpose of new technologies like MEAN stack.
+FacebookMEAN is a simple social networking, which is built in an effort to learn MEAN stack.
 
 It’s built with JavaScript – a very light [node](https://nodejs.org) plus [express](http://expressjs.com) server, [mongo](https://www.mongodb.com/) database, [angularjs](https://angularjs.org/), and many other wonderful libraries on the front-end.
 
@@ -12,10 +12,10 @@ It’s built with JavaScript – a very light [node](https://nodejs.org) plus [e
 
 ## Installation
 
-> Note that you're free to adjust the `~/Code/facebook-lite` location to any directory you want on your machine.
+> Note that you're free to adjust the `~/Code/facebook-mean` location to any directory you want on your machine.
 
-1. Clone this repository: `git clone git@github.com:kugoo109/facebook-lite.git ~/Code/facebook-lite`
-2. Go to `~/Code/facebook-lite`
+1. Clone this repository: `git clone git@github.com:kugoo109/facebook-mean.git ~/Code/facebook-mean`
+2. Go to `~/Code/facebook-mean`
 3. Run the following commands:
     1. `npm install`
     2. `bower install`
