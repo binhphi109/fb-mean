@@ -25,21 +25,21 @@ You can now visit the app in your browser by visiting [http://localhost:3000](ht
 
 ## Features
 
-- Login/Register
-- Authentication with Passport
-- Authorization (coming soon...)
-- Secure with HTTPS (coming soon...)
-- News Feed
-- Realtime comments with Socket.io
-- Profile
-- Upload Profile Picture with Multer
-- Activity Stream with Socket.io (coming soon...)
-- Messenger with Socket.io (coming soon...)
-- Status Notification (coming soon...)
-- 'Show more' when scrolling (coming soon...)
-- Error Notification with Toastr (coming soon...)
-- Gulp (coming soon...)
-- Unit Test with Mocha (coming soon...)
+- [x] Login/Register
+- [x] Authentication with Passport
+- [ ] Authorization (coming soon...)
+- [ ] Secure with HTTPS (coming soon...)
+- [x] News Feed
+- [x] Realtime comments with Socket.io
+- [x] Profile
+- [x] Upload Profile Picture with Multer
+- [ ] Activity Stream with Socket.io (coming soon...)
+- [ ] Messenger with Socket.io (coming soon...)
+- [ ] Status Notification (coming soon...)
+- [ ] 'Show more' when scrolling (coming soon...)
+- [ ] Error Notification with Toastr (coming soon...)
+- [ ] Gulp (coming soon...)
+- [ ] Unit Test with Mocha (coming soon...)
 
 ## License
 
