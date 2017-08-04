@@ -113,6 +113,15 @@ module.exports.initRoutes = function (app) {
     // Setting the app router and static folder
     app.use(express.static(path.resolve('./client')));
 
+    // Enable CORS from client-side
+    app.use(function (req, res, next) {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials');
+        res.header('Access-Control-Allow-Credentials', 'true');
+        next();
+    });
+
     // Globbing routing files
     config.files.routes.forEach(function (routePath) {
         require(path.resolve(routePath))(app);
