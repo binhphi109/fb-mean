@@ -80,5 +80,5 @@ exports.checkme = function (req, res) {
  */
 exports.signout = function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.json(null);
 };
