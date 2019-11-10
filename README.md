@@ -1,6 +1,6 @@
 # Facebook-MEAN
 
-FacebookMEAN is a simple social networking, which is built in an effort to learn MEAN stack.
+FbMEAN is a simple social app, which is built in an effort to learn MEAN stack.
 
 It’s built with JavaScript – a very light [node](https://nodejs.org) plus [express](http://expressjs.com) server, [mongo](https://www.mongodb.com/) database, [angularjs](https://angularjs.org/), and many other wonderful libraries on the front-end.
 
